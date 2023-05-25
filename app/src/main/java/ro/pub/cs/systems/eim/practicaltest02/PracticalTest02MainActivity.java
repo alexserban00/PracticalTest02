@@ -32,9 +32,9 @@ public class PracticalTest02MainActivity extends AppCompatActivity {
         etServerPort = findViewById(R.id.server_port);
         etClientAddr = findViewById(R.id.client_addr);
         etClientPort = findViewById(R.id.client_port);
-        etCity = findViewById(R.id.city);
+        etCity = findViewById(R.id.word);
         butServerConnect = findViewById(R.id.server_connect);
-        butGetWeatherForecast = findViewById(R.id.get_weather_forecast);
+        butGetWeatherForecast = findViewById(R.id.get_word_definition);
         spinnerInformationType = findViewById(R.id.spinner);
         tvWeatherForecast = findViewById(R.id.weather_forecast_text_view);
 

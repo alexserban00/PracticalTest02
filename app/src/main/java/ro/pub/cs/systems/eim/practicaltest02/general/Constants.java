@@ -14,7 +14,7 @@ public class Constants {
     final public static String HUMIDITY = "humidity";
     final public static String ALL = "all";
 
-    final public static String WEB_SERVICE_ADDRESS = "https://api.openweathermap.org/data/2.5/weather";
+    final public static String WEB_SERVICE_ADDRESS = "https://api.dictionaryapi.dev/ap/v2/entries/en/";
     final public static String WEB_SERVICE_API_KEY = "e03c3b32cfb5a6f7069f2ef29237d87e";
 
 }

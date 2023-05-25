@@ -15,18 +15,16 @@ public class ClientThread extends Thread {
 
     private String address;
     private int port;
-    private String city;
-    private String informationType;
-    private TextView weatherForecastTextView;
+    private String word;
+    private TextView tvDefinition;
 
     private Socket socket;
 
-    public ClientThread(String address, int port, String city, String informationType, TextView weatherForecastTextView) {
+    public ClientThread(String address, int port, String word, TextView tvDefinition) {
         this.address = address;
         this.port = port;
-        this.city = city;
-        this.informationType = informationType;
-        this.weatherForecastTextView = weatherForecastTextView;
+        this.word = word;
+        this.tvDefinition = tvDefinition;
     }
 
     @Override
@@ -43,17 +41,15 @@ public class ClientThread extends Thread {
                 Log.e(Constants.CLIENT_THREAD_TAG, "[CLIENT THREAD] Buffered Reader / Print Writer are null!");
                 return;
             }
-            printWriter.println(city);
+            printWriter.println(word);
             printWriter.flush();
-            printWriter.println(informationType);
-            printWriter.flush();
-            String weatherInformation;
-            while ((weatherInformation = bufferedReader.readLine()) != null) {
-                final String finalizedWeateherInformation = weatherInformation;
-                weatherForecastTextView.post(new Runnable() {
+            String wordDefinition;
+            while ((wordDefinition = bufferedReader.readLine()) != null) {
+                final String finalizedWeateherInformation = wordDefinition;
+                tvDefinition.post(new Runnable() {
                     @Override
                     public void run() {
-                        weatherForecastTextView.setText(finalizedWeateherInformation);
+                        tvDefinition.setText(finalizedWeateherInformation);
                     }
                 });
             }

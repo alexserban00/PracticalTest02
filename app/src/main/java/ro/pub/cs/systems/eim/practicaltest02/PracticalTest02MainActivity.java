@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,11 +16,10 @@ import ro.pub.cs.systems.eim.practicaltest02.network.ServerThread;
 
 public class PracticalTest02MainActivity extends AppCompatActivity {
 
-    private EditText etServerPort, etClientAddr, etClientPort, etCity;
+    private EditText etServerPort, etClientAddr, etClientPort, etWord;
     private Button butServerConnect, butGetWeatherForecast;
     private ServerThread serverThread;
-    private Spinner spinnerInformationType;
-    private TextView  tvWeatherForecast;
+    private TextView tvDefinition;
     private ClientThread clientThread = null;
 
     @Override
@@ -32,11 +30,10 @@ public class PracticalTest02MainActivity extends AppCompatActivity {
         etServerPort = findViewById(R.id.server_port);
         etClientAddr = findViewById(R.id.client_addr);
         etClientPort = findViewById(R.id.client_port);
-        etCity = findViewById(R.id.word);
+        etWord = findViewById(R.id.word);
         butServerConnect = findViewById(R.id.server_connect);
         butGetWeatherForecast = findViewById(R.id.get_word_definition);
-        spinnerInformationType = findViewById(R.id.spinner);
-        tvWeatherForecast = findViewById(R.id.weather_forecast_text_view);
+        tvDefinition = findViewById(R.id.weather_forecast_text_view);
 
         butServerConnect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,18 +66,16 @@ public class PracticalTest02MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "[MAIN ACTIVITY] There is no server to connect to!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                String city = etCity.getText().toString();
-                String informationType = spinnerInformationType.getSelectedItem().toString();
-                if (city == null || city.isEmpty()
-                        || informationType == null || informationType.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "[MAIN ACTIVITY] Parameters from client (city / information type) should be filled", Toast.LENGTH_SHORT).show();
+                String word = etWord.getText().toString();
+                if (word == null || word.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "[MAIN ACTIVITY] Parameters from client (word / information type) should be filled", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                tvWeatherForecast.setText("");
+                tvDefinition.setText("");
 
                 clientThread = new ClientThread(
-                        clientAddress, Integer.parseInt(clientPort), city, informationType, tvWeatherForecast
+                        clientAddress, Integer.parseInt(clientPort), word, tvDefinition
                 );
                 clientThread.start();
             }

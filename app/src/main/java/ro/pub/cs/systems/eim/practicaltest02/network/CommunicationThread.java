@@ -87,18 +87,24 @@ public class CommunicationThread extends Thread {
                 } else
                     Log.i(Constants.COMMUNICATION_TAG, pageSourceCode);
 
-                JSONObject content = new JSONObject(pageSourceCode);
+                JSONArray contentArray = new JSONArray(pageSourceCode);
 
-                JSONArray meaningsArray = content.getJSONArray("meanings");
-                JSONObject meaning = meaningsArray.getJSONObject(0);
-                JSONArray definitionsArray = meaning.getJSONArray("definitions");
-                for (int i = 0; i < definitionsArray.length(); i++) {
-                    JSONObject definition = definitionsArray.getJSONObject(i);
+                for (int i = 0; i < contentArray.length(); i++) {
+                    JSONObject content = contentArray.getJSONObject(i);
 
-                    // Get the definition
-                    definitionText = definition.getString("definition");
-                    Log.d("Definition", definitionText);
+                    JSONArray meaningsArray = content.getJSONArray("meanings");
+                    for (int j = 0; j < meaningsArray.length(); j++) {
+                        JSONObject meaning = meaningsArray.getJSONObject(j);
 
+                        JSONArray definitionsArray = meaning.getJSONArray("definitions");
+                        for (int k = 0; k < definitionsArray.length(); k++) {
+                            JSONObject definition = definitionsArray.getJSONObject(k);
+
+                            // Get the definition
+                            definitionText = definition.getString("definition");
+                            Log.d("Definition", definitionText);
+                        }
+                    }
                 }
             }
 
